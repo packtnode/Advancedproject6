@@ -4,7 +4,7 @@ const express = require('express'),
 	facebookRoutes = require('./controller/facebook.routes');
 
 
-app.use('/auth/facebook/',facebookRoutes);
+app.use('/auth/facebook/',facebookRoutes); //localhost:3000/auth/facebook/<Route>
 
 
 app.listen(3000,()=>{
