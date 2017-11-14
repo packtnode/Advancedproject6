@@ -11,8 +11,7 @@ Router.get('/', passport.authenticate('facebook',{
 
 Router.get('/redirect',passport.authenticate('facebook'),(req,res) => {
 	//res.redirect('/homepage/'+req.user.id);
-	console.log(req.user);
-	res.send('logged in to the account of' + req.user.username);
+	res.redirect('/homepage');
 })
 
 module.exports = Router;
