@@ -9,11 +9,7 @@ let UserSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: false // only required if its a local user
-	},
-	facebookid: {
-		type: String,
-		required: false //only required if its a facebook user
+		required: true 
 	}
 })
 
