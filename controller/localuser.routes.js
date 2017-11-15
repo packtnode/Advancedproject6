@@ -1,15 +1,14 @@
 // localhost:3000/auth/localuser/<Route>
 const Router = require('express').Router(),
-	User = require('../model/user.model');
+	User = require('../model/user.model'),
+	bcrypt  = require('bcryptjs'),
+	salt    = bcrypt.genSaltSync(10);
 
-// Router.get('/',(req,res)=> {
-// 	res.sendFile('./views/index.html');
-// })
 
 Router.post('/new',(req,res)=> {
 	let newuser = new User;
 	newuser.username = req.body.username;
-	newuser.password = req.body.password;
+	newuser.password = bcrypt.hashSync(req.body.password, salt);
 	newuser.save((err,newuser) => {
 		if(newuser) {
 			req.session.localUser = newuser;
@@ -20,17 +19,23 @@ Router.post('/new',(req,res)=> {
 
 Router.post('/login',(req,res)=>{
 	User.find({
-		username: req.body.username,
-		password: req.body.password
+		username: req.body.username
 	},(err,theuser) => {
-		if(theuser){
+		if(bcrypt.compareSync(req.body.password,theuser[0].password)){
 			req.session.localUser = theuser;
-			res.redirect('/homepage');
+		    res.redirect('/homepage');
+		}else{
+			res.redirect('/');
 		}
 	})
 })
 module.exports = Router;
 
+
+		// if(theuser){
+		// 	req.session.localUser = theuser;
+		// 	res.redirect('/homepage');
+		// }
 
 
 

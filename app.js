@@ -29,7 +29,7 @@ app.get('/homepage',(req,res)=>{
 	 if(req.session.localUser){
 		res.send(req.session.localUser);
 	}else{
-		res.redirect('/homepage');
+		res.redirect('/');
 	}
 })
 
